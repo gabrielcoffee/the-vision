@@ -52,6 +52,18 @@
     min-height: 150px;
     resize: vertical;
   }
+
+  .border {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.75rem;
+    background-color: var(--green-light);
+    color: var(--green);
+    font-family: 'Montserrat', sans-serif;
+    transition: border-color 0.3s;
+    max-width: fit-content;
+    text-align: center;
+  }
   
   .form-submit {
     background: linear-gradient(to right, var(--blue-dark), var(--blue-light-2));
@@ -92,8 +104,11 @@
   }
   
   .contact-info {
-    margin-top: 3rem;
     text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 4rem;
   }
   
   .contact-info-item {
@@ -101,7 +116,7 @@
     align-items: center;
     justify-content: center;
     gap: 0.2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.65rem;
     color: var(--muted-foreground);
   }
   
@@ -129,7 +144,23 @@
     color: var(--blue);
   }
 
+  .contact-info-icon.green {
+    background-color: var(--green-light);
+  }
+  
+  .contact-info-icon.green .icon {
+    color: var(--green);
+  }
+
 .contact-page-title {
+    font-size: 1.875rem;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+}
+
+.contact-page-title-2 {
     font-size: 1.875rem;
     font-weight: 300;
     text-align: center;
@@ -143,4 +174,10 @@
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+}
+
+
+.cnpj {
+  font-size: 0.9rem;
+  color: #888;
 }

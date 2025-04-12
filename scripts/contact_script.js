@@ -21,6 +21,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     };
 
+	const sanitize = (str) => str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+	["name", "email", "phone", "message"].forEach(id => {
+		const el = document.getElementById(id);
+		el.value = sanitize(el.value.trim());
+	});
+
     // Fill hiddden fields with localized text
     document.getElementById("formLang").value = lang;
     document.getElementById("formGreeting").value = localizedContent[lang].greeting;
@@ -33,20 +40,25 @@ document.addEventListener("DOMContentLoaded", () => {
     contactForm.addEventListener("submit", function (e) {
         e.preventDefault(); // Prevents the page from reloading on submit
         
-        emailjs.sendForm(window.ENV.SERVICE_ID, window.ENV.TEMPLATE_ID, contactForm)
-            .then(() => {
-            successMessage.style.display = "block";
-            errorMessage.style.display = "none";
-            contactForm.reset();
-        
-            setTimeout(() => {
-                successMessage.style.display = "none";
-            }, 5000);
-            })
-            .catch(() => {
-            errorMessage.style.display = "block";
-            successMessage.style.display = "none";
-            });
+		// First: send notification to your company
+		emailjs.sendForm(window.ENV.SERVICE_ID, window.ENV.NOTIFY_COMPANY_TEMPLATE, contactForm)
+		.then(() => {
+			// Then: send auto-reply to client
+			return emailjs.sendForm(window.ENV.SERVICE_ID, window.ENV.TEMPLATE_ID, contactForm);
+		})
+		.then(() => {
+			successMessage.style.display = "block";
+			errorMessage.style.display = "none";
+			contactForm.reset();
+
+			setTimeout(() => {
+			successMessage.style.display = "none";
+			}, 5000);
+		})
+		.catch(() => {
+			errorMessage.style.display = "block";
+			successMessage.style.display = "none";
+		});
     });
 
     
@@ -54,7 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const additionalTranslations = {
       "EN-US": {
         "contact.page.title": "Get in Touch",
-        "contact.page.description": "Fill out the form below and we'll get back to you as soon as possible.",
+        "contact.page.title.2": "Or simply fill out this form",
+        "contact.page.description": "We'll get back to you as soon as possible.",
         "contact.form.name": "Name",
         "contact.form.email": "Email",
         "contact.form.phone": "Phone",
@@ -65,7 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       "PT-BR": {
         "contact.page.title": "Entre em Contato",
-        "contact.page.description": "Preencha o formulário abaixo e entraremos em contato o mais breve possível.",
+        "contact.page.title.2": "Ou apenas preencha este formulário",
+        "contact.page.description": "Entraremos em contato o mais breve possível.",
         "contact.form.name": "Nome",
         "contact.form.email": "Email",
         "contact.form.phone": "Telefone",
@@ -88,6 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Additional translatable elements for contact page
     const additionalTranslatableElements = [
       { selector: ".contact-page-title", key: "contact.page.title" },
+      { selector: ".contact-page-title-2", key: "contact.page.title.2" },
       { selector: ".contact-page-description", key: "contact.page.description" },
       { selector: "label[for='name']", key: "contact.form.name" },
       { selector: "label[for='email']", key: "contact.form.email" },
