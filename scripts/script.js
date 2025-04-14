@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			"service.design.title": "Mobile Apps",
 			"service.design.description": "We craft intuitive and high-performing mobile applications. Our mobile solutions emphasize seamless user experiences, rapid performance, and native integration to help your app stand out in today's competitive market.",
 		
-		"tech.title": "TECHNOLOGIES WE USE",
+		"tech.title": "TECHNOLOGIES",
 		"tech.frontend": "Frontend",
 		"tech.backend": "Backend",
 		"tech.database": "Database",
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		"service.ai.description": "Implementamos integrações avançadas de IA para otimizar processos e fornecer insights acionáveis. Exemplos incluem chatbots para atendimento ao cliente, motores de recomendação e análises preditivas. Além disso, desenvolvemos algoritmos personalizados de aprendizado de máquina treinados com seus dados, melhorando a tomada de decisões e a automação.",
 		"service.design.title": "Aplicativos Móveis",
 		"service.design.description": "Criamos aplicativos móveis intuitivos e de alto desempenho. Nossas soluções móveis priorizam experiências de usuário fluídas, desempenho rápido e integração nativa, garantindo que seu aplicativo se destaque no mercado competitivo atual.",
-		"tech.title": "TECNOLOGIAS QUE USAMOS",
+		"tech.title": "TECNOLOGIAS",
 		"tech.frontend": "Frontend",
 		"tech.backend": "Backend",
 		"tech.database": "Banco de Dados",
@@ -157,7 +157,22 @@ document.addEventListener("DOMContentLoaded", () => {
 		localStorage.setItem("language", lang);
 	}
 	
-	const storedLanguage = localStorage.getItem("language") || "EN-US";
+
+	// Set the language on page load based on user browser language
+	let storedLanguage = localStorage.getItem("language");
+
+	if (!storedLanguage) {
+		const browserLang = navigator.language || navigator.userLanguage;
+		
+		// Basic logic: use PT-BR if browser is Portuguese
+		if (browserLang.toLowerCase().startsWith("pt")) {
+			storedLanguage = "PT-BR";
+		} else {
+			storedLanguage = "EN-US";
+		}
+		
+		localStorage.setItem("language", storedLanguage);
+	}
 	window.changeLanguage(storedLanguage);
 
 
