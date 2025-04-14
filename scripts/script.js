@@ -187,6 +187,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// Change theme
 	function changeTheme(theme) {
+		// Saving the theme
+		localStorage.setItem("theme", theme);
+
 		if (theme === "light") {
 		document.body.classList.remove("dark-theme")
 		themeText.textContent = "Day"
@@ -199,6 +202,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		sunIcon.classList.add("hidden")
 		}
 	}
+
+	// Set page theme based on previously selected theme or use dark as default
+	const storedTheme = localStorage.getItem("theme") || "dark";
+	changeTheme(storedTheme);
 
 	// Theme event listeners
 	themeOptions.forEach((option) => {
