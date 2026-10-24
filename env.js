@@ -1,7 +1,7 @@
-// These are public EmailJS keys safe for frontend use
+// EmailJS configuration. Fill in your own keys to enable the contact form.
 window.ENV = {
-    EMAILJS_PUBLIC_KEY: "pqdr857dpI9_bbLZr",
-    SERVICE_ID: "service_wxaztpd",
-    TEMPLATE_ID: "template_xv3b88h",
-    NOTIFY_COMPANY_TEMPLATE: "template_mln7glo",
-};  
+    EMAILJS_PUBLIC_KEY: "",
+    SERVICE_ID: "",
+    TEMPLATE_ID: "",
+    NOTIFY_COMPANY_TEMPLATE: "",
+};
